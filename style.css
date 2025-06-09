@@ -1,0 +1,185 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color: #c5bebe;
+      font-family: "Roboto", sans-serif;
+     font-optical-sizing: auto;
+}
+
+
+/* //// nav ::  */
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 20px;
+    
+
+}
+
+
+.nav-logo {
+    width: 4%;
+   margin-left: 94px;
+
+}
+
+
+.username , .pin {
+    width: 80px;
+    padding: 6px;
+    border-radius: 10px;
+    border: transparent;
+    text-align: center;
+    transition: 0.5s all;
+}
+
+.username:focus {
+outline: none;
+box-shadow: 1px 1px 10px black;
+transform: translateY(-2px);
+}
+
+.pin:focus {
+    outline: none;
+box-shadow: 1px 1px 10px black;
+transform: translateY(-2px);
+}
+
+.auth-btn {
+margin-left: 10px;
+cursor: pointer;
+}
+
+.welcome {
+    letter-spacing: 0.5px;
+    font-size: 20px;
+}
+
+/* /// main header  */
+.main-header {
+    width: 80%;
+    margin: 60px auto;
+    display: flex;
+    flex-direction:row ; 
+    justify-content: space-between;
+    align-items: center;
+}
+
+.amount  {
+    font-size: 40px;
+}
+
+
+/* ///// mouvements ::::  */
+
+.movements-container {
+ 
+   min-height: 600px;
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   width: 88%;
+   margin: 0px auto;
+   
+}
+
+.left {
+  
+    width: 45%;
+    margin-right: 10px;
+    background-color: white;
+    overflow: scroll;
+    height: 580px;
+    border-radius: 10px;
+
+
+    
+}
+
+.right {
+        border: solid 3px rgb(7, 132, 64);
+        width: 45%;
+        margin-left: 10px;
+}
+
+
+.deposit-container , .withdraw-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 20px;
+  
+}
+
+.deposit {
+background: linear-gradient(135deg, #7ed481 , #3ea343 );
+color: white;
+border-radius: 10px;
+padding: 3px;
+margin-right: 20px;
+
+}
+.withdraw {
+background: linear-gradient(135deg, #e35858 0%, #ba3f3f );
+color: white;
+border-radius: 10px;
+padding: 5px;
+margin-right: 20px;
+
+}
+
+/* ////// transfert ::  */
+
+.transfert-box {
+    border-radius: 10px;
+  margin: 10px 20px;
+    width: 65%;
+    height: 150px;
+  background: linear-gradient(135deg, #ffc107 , #ff9800 );
+  padding: 10px 0px;
+}
+
+form {
+    position: relative;
+    text-align: center;
+}
+.transfert-user , .amount-transfert-input {
+width: 100px;
+padding: 5px;
+border-radius: 10px;
+ border: transparent;
+ background-color: rgba(255, 255, 255, 0.605);
+}
+
+.box-title {
+    margin-left: 70px;
+}
+
+.label-transfert {
+position: absolute;
+top: 30px;
+left: 80px;
+
+}
+
+.label-amount-transfert {
+position: absolute;
+top: 30px;
+right: 125px;
+}
+
+.transfert-button {
+    width: 45px;
+    border: transparent;
+    padding: 3px;
+    border-radius: 8px;
+    cursor: pointer;
+}
