@@ -11,6 +11,11 @@ body {
      font-optical-sizing: auto;
 }
 
+:root {
+    --color-primary : #c61e1e ;
+    --color-secondry : #3ea343 ;
+}
+
 
 /* //// nav ::  */
 header {
@@ -104,7 +109,7 @@ cursor: pointer;
 }
 
 .right {
-        border: solid 3px rgb(7, 132, 64);
+     
         width: 45%;
         margin-left: 10px;
 }
@@ -140,14 +145,14 @@ margin-right: 20px;
 
 .transfert-box {
     border-radius: 10px;
-  margin: 10px 20px;
+  margin: 20px 20px;
     width: 65%;
     height: 150px;
   background: linear-gradient(135deg, #ffc107 , #ff9800 );
   padding: 10px 0px;
 }
 
-form {
+.transfert-form {
     position: relative;
     text-align: center;
 }
@@ -182,4 +187,142 @@ right: 125px;
     padding: 3px;
     border-radius: 8px;
     cursor: pointer;
+}
+
+
+/* loan :::::::: */
+
+.loan-form {
+    position: relative;
+}
+
+.loan-box {
+        border-radius: 10px;
+  margin: 20px 20px;
+    width: 65%;
+    height: 150px;
+background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+  padding: 10px 0px;
+}
+
+.loan-input{
+    width: 100px;
+padding: 5px;
+border-radius: 10px;
+ border: transparent;
+ background-color: rgba(255, 255, 255, 0.605);
+ position: absolute;
+ left: 60px;
+}
+
+.loan-button {
+    width: 45px;
+    border: transparent;
+    padding: 3px;
+    border-radius: 8px;
+    cursor: pointer;
+     position: absolute;
+   left: 190px;
+   top: 1.5px;
+}
+
+.label-amount-loan{
+position: absolute;
+top: 30px;
+left: 80px;
+}
+
+
+/* ///// close ::::  */
+
+
+.close-box {
+        border-radius: 10px;
+  margin: 20px 20px;
+    width: 65%;
+    height: 150px;
+background: linear-gradient(135deg, #c61e1e , #881313 );
+  padding: 10px 0px;
+}
+
+
+.close-form{
+     position: relative;
+    text-align: center;
+}
+
+.close-user , .close-pin {
+
+    width: 100px;
+padding: 5px;
+border-radius: 10px;
+ border: transparent;
+ background-color: rgba(255, 255, 255, 0.605);
+}
+
+
+
+.label-user-close {
+    position: absolute;
+top: 30px;
+left: 70px;
+}
+
+.label-pin-close {
+    position: absolute;
+top: 30px;
+right: 119px;
+}
+
+.close-button{
+    width: 45px;
+    border: transparent;
+    padding: 3px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* 
+///// footer  */
+
+footer {
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.mov-average-in {
+    font-size: 25px;
+    font-weight: 500;
+    color: #3ea343;
+    margin-right: 15px;
+}
+
+.mov-info-in ,.mov-info-out , .mov-info-interset{
+    font-size: 15px;
+}
+
+.mov-average-out {
+    font-size: 25px;
+    font-weight: 500;
+    color: var(--color-primary) ;
+    margin-right: 15px;
+}
+
+
+.mov-average-interset {
+      font-size: 25px;
+    font-weight: 500;
+    color: var(--color-secondry);
+    margin-right: 15px;
+}
+
+.looged-out-timer {
+    font-weight: 800;
+}
+
+main {
+    opacity: 1;
 }

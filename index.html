@@ -61,18 +61,75 @@
         </section>
 
         <section class="right">
+          <!-- ///// transfert box ::  -->
           <div class="transfert-box">
-         <h3 class="box-title" >transfert money</h3>
-         <form>
-            <input  class="transfert-user" type="text"/>
-            <input   class="amount-transfert-input" type="number"/>
-            <button class="transfert-button">   <i class="fa-solid fa-arrow-right fa-xl"></i></button>
-            <label  class="label-transfert">Transfert To</label>
-            <label  class="label-amount-transfert">Amount</label>
-         </form>
+            <h3 class="box-title">transfert money</h3>
+            <form class="transfert-form">
+              <input class="transfert-user" type="text" />
+              <input class="amount-transfert-input" type="number" />
+              <button class="transfert-button">
+                <i class="fa-solid fa-arrow-right fa-xl"></i>
+              </button>
+              <label class="label-transfert">Transfert To</label>
+              <label class="label-amount-transfert">Amount</label>
+            </form>
+          </div>
+
+          <!-- ///// loan box ::: -->
+
+          <div class="loan-box">
+            <h3 class="box-title">Request Loan</h3>
+            <form class="loan-form">
+              <input class="loan-input" type="number" />
+              <button class="loan-button">
+                <i class="fa-solid fa-arrow-right fa-xl"></i>
+              </button>
+              <label class="label-amount-loan">Amount</label>
+            </form>
+          </div>
+
+          <!-- ///// close account ::  -->
+
+          <div class="close-box">
+            <h3 class="box-title">Close account</h3>
+            <form class="close-form">
+              <input class="close-user" type="text" />
+              <input class="close-pin" type="number" />
+              <button class="close-button">
+                <i class="fa-solid fa-arrow-right fa-xl"></i>
+              </button>
+              <label class="label-user-close">Confirm User</label>
+              <label class="label-pin-close">Confirm Pin</label>
+            </form>
           </div>
         </section>
       </section>
+
+          <footer>
+      <div class="summary-container">
+        <span class="mov-info-in">IN</span>
+        <span class="mov-average-in"
+          >0000 <i class="fa-solid fa-euro-sign"></i>
+        </span>
+
+        <span class="mov-info-out">OUT</span>
+        <span class="mov-average-out"
+          >0000 <i class="fa-solid fa-euro-sign"></i>
+        </span>
+
+        <span class="mov-info-interset">IN</span>
+        <span class="mov-average-interset"
+          >0000 <i class="fa-solid fa-euro-sign"></i>
+        </span>
+      </div>
+
+      <p> <i class="fa-solid fa-arrow-down"></i> SORT </p>
+      <span class="logged-out" >YOU WILL BE LOGGED OUT IN <span class="looged-out-timer" >05:00</span> </span> 
+    </footer>
     </main>
+
+ 
+    <script src="./app.js"></script>
+
   </body>
 </html>
