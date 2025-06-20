@@ -5,6 +5,8 @@ const account1 = {
   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
   interestRate: 1.2,
   pin: 1111,
+  
+  
 };
 
 const account2 = {
@@ -12,6 +14,7 @@ const account2 = {
   movements: [5000, 3400, -150, -790, -3210, 1000, 8500, -30],
   interestRate: 1.5,
   pin: 2222,
+
 };
 
 const account3 = {
@@ -26,9 +29,15 @@ const account4 = {
   movements: [430, 1000, 700, 50, 90],
   interestRate: 1,
   pin: 4444,
+  
+  
 };
 
-const accounts = [account1, account2, account3, account4];
+
+
+
+
+const accounts = [account1, account2, account3, account4 ];
 
 ///// import elements ::
 
@@ -37,13 +46,83 @@ const balanceAccount = document.querySelector(".amount");
 const inComes = document.querySelector(".mov-average-in");
 const outMoney = document.querySelector(".mov-average-out");
 const interest = document.querySelector(".mov-average-interset");
+const app = document.querySelector("main")
+
+
+///// Auth element 
+
+const userNameInput = document.querySelector(".username")
+const pinInput = document.querySelector(".pin")
+const btnLogin = document.querySelector(".auth-btn")
+const welcomeMessage = document.querySelector(".welcome")
+
+
+
+
+/////////// userName faunctionnality :::  
+
+
+const displayUsername = function (arr){
+ arr.forEach((person)=>{
+  person.userName = person.owner.toLowerCase().split(" ").map((ele)=> ele[0]) 
+     .join("")  
+ })
+}
+
+displayUsername(accounts)
+
+////// display login ::: 
+
+let currentAccount ; 
+
+btnLogin.addEventListener("click" , function(){
+  currentAccount = accounts.find((acc)=> {
+    return acc.userName === userNameInput.value 
+  })
+  console.log("current:" , currentAccount)
+
+  if (currentAccount?.pin === Number(pinInput.value) ){
+    welcomeMessage.textContent = `welcome back ${currentAccount.owner.split(" ")[0]}`
+
+     app.style.opacity = 1 ;
+     //// update ui :: 
+     dispalyMovements(currentAccount) ;
+     displayBalance(currentAccount) ;
+     calcDispalySummary(currentAccount)
+
+   
+  }
+
+    userNameInput.value = pinInput.value = ""
+ 
+
+
+
+ 
+  
+
+})
+
+
+
+
+
+
+
+
 
 /////// display movements :::
 
-const dispalyMovements = function (arr) {
+
+
+
+
+
+
+const dispalyMovements = function (acc) {
   movementContainer.innerHTML = "";
 
-  arr.forEach((mov, i) => {
+  acc.movements.forEach((mov, i) => {
     let type = mov > 0 ? "deposit" : "withdraw";
 
     let html = `
@@ -63,46 +142,72 @@ const dispalyMovements = function (arr) {
   });
 };
 
-dispalyMovements(account1.movements);
+// dispalyMovements(account1.movements);
+
+
+
+//currentAccount = {
+//   owner: "Sarah Smith",
+//   movements: [430, 1000, 700, 50, 90],
+//   interestRate: 1,
+//   pin: 4444,
+  
+  
+// };
+
 
 /////// display balance :
-const displayBalance = function (arr) {
-  const balance = arr.reduce((acc, mov) => acc + mov, 0);
+const displayBalance = function (cur) {
+  const balance = cur.movements.reduce((acc, mov) => acc + mov, 0);
   //// update ui :
   balanceAccount.textContent = `${balance} € `;
 };
 
-displayBalance(account1.movements);
+// displayBalance(account1.movements);
+
+
+
+
+
+
+
+
 
 /////// display summary :::
 
-const calcDispalySummary = function (accountMovement) {
-  const inc = accountMovement
+const calcDispalySummary = function (current) {
+  const inc = current.movements
     .filter((mov) => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-    //// display ui :: 
-    inComes.textContent = `${inc} €`
+  //// display ui ::
+  inComes.textContent = `${inc} €`;
 
-    const outc = accountMovement.filter((mov)=> mov < 0)
-   .reduce((acc,mov)=>acc+mov,0)
-    //// display ui :: 
-    outMoney.textContent = `${Math.abs(outc)} €`
+  const outc = current.movements
+    .filter((mov) => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  //// display ui ::
+  outMoney.textContent = `${Math.abs(outc)} €`;
 
+  const intresetc = current.movements
+    .filter((mov) => mov > 0)
+    .map((deposit) => (deposit * 1.2) / 100)
+    .filter((ele) => ele > 1)
+    .reduce((acc, mov) => acc + mov, 0);
+  ///// display ui ::
 
-    const intresetc = accountMovement.filter((mov)=> mov > 0)
-    .map((deposit)=> (deposit*1.2)/100).filter((ele)=> ele > 1).reduce((acc,mov)=>acc+mov ,0)
-   ///// display ui :: 
-   
-   interest.textContent = `${intresetc} €`
-
+  interest.textContent = `${intresetc} €`;
 };
-  
+
+// calcDispalySummary(account1.movements);
 
 
 
 
 
-calcDispalySummary(account1.movements)
+
+
+
+
 
 /////////////////// lecture  ::: ////////////////////////
 
@@ -269,47 +374,40 @@ const euroToDinar = 3.3;
 //   } , 0);
 // console.log(result);
 
-
 /////// find //////////////////////
 
+// const numbers = [10,20,30,40,20] ;
 
-// const numbers = [10,20,30,40,20] ; 
-
-////// false ; null ; NaN ; undefind ; 0 
+////// false ; null ; NaN ; undefind ; 0
 
 // const result = numbers.find((ele )=> {
 //     console.log(ele)
 //     return ele === 20
 // } )
 
-
 // if (result) {
 //     console.log("we found it !! ")
 // }
 
 const dataBase = [
+  {
+    userName: "peter",
+    photo: "picture1",
+    age: 20,
+  },
 
-{
-    userName : "peter" ,
-    photo : "picture1",
-    age : 20
-} ,
+  {
+    userName: "mark",
+    photo: "picture2",
+    age: 60,
+  },
 
-{
-    userName : "mark" ,
-    photo : "picture2" , 
-    age  : 60
-}, 
+  {
+    userName: "nicole",
+    photo: "picture3",
+    age: 30,
+  },
+];
 
-{
-    userName : "nicole" ,
-    photo : "picture3" , 
-    age : 30
-}
-
-]
-
-const result = dataBase.find((person)=> person.age === 60)
-console.log(result)
-
-
+// const result = dataBase.find((person) => person.age === 60);
+// console.log(result);
