@@ -5,8 +5,6 @@ const account1 = {
   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
   interestRate: 1.2,
   pin: 1111,
-  
-  
 };
 
 const account2 = {
@@ -14,7 +12,6 @@ const account2 = {
   movements: [5000, 3400, -150, -790, -3210, 1000, 8500, -30],
   interestRate: 1.5,
   pin: 2222,
-
 };
 
 const account3 = {
@@ -29,15 +26,9 @@ const account4 = {
   movements: [430, 1000, 700, 50, 90],
   interestRate: 1,
   pin: 4444,
-  
-  
 };
 
-
-
-
-
-const accounts = [account1, account2, account3, account4 ];
+const accounts = [account1, account2, account3, account4];
 
 ///// import elements ::
 
@@ -46,78 +37,96 @@ const balanceAccount = document.querySelector(".amount");
 const inComes = document.querySelector(".mov-average-in");
 const outMoney = document.querySelector(".mov-average-out");
 const interest = document.querySelector(".mov-average-interset");
-const app = document.querySelector("main")
+const app = document.querySelector("main");
 
+///// login element
 
-///// Auth element 
+const userNameInput = document.querySelector(".username");
+const pinInput = document.querySelector(".pin");
+const btnLogin = document.querySelector(".auth-btn");
+const welcomeMessage = document.querySelector(".welcome");
 
-const userNameInput = document.querySelector(".username")
-const pinInput = document.querySelector(".pin")
-const btnLogin = document.querySelector(".auth-btn")
-const welcomeMessage = document.querySelector(".welcome")
+////// import transfert element :
+const transferToInput = document.querySelector(".transfert-user");
+const transferAmountInput = document.querySelector(".amount-transfert-input");
+const transfertButton = document.querySelector(".transfert-button");
 
+/////// update ui function ::
+const updateUi = function (cur) {
+  dispalyMovements(cur);
+  displayBalance(cur);
+  calcDispalySummary(cur);
+};
 
-
-
-/////////// userName faunctionnality :::  
-
-
-const displayUsername = function (arr){
- arr.forEach((person)=>{
-  person.userName = person.owner.toLowerCase().split(" ").map((ele)=> ele[0]) 
-     .join("")  
- })
-}
-
-displayUsername(accounts)
-
-////// display login ::: 
-
-let currentAccount ; 
-
-btnLogin.addEventListener("click" , function(){
-  currentAccount = accounts.find((acc)=> {
-    return acc.userName === userNameInput.value 
-  })
-  console.log("current:" , currentAccount)
-
-  if (currentAccount?.pin === Number(pinInput.value) ){
-    welcomeMessage.textContent = `welcome back ${currentAccount.owner.split(" ")[0]}`
-
-     app.style.opacity = 1 ;
-     //// update ui :: 
-     dispalyMovements(currentAccount) ;
-     displayBalance(currentAccount) ;
-     calcDispalySummary(currentAccount)
-
-   
+//////// transfert functionnality :
+transfertButton.addEventListener("click", function (event) {
+  event.preventDefault();
+  const reciever = accounts.find(
+    (acc) => acc.userName === transferToInput.value
+  );
+  const amount = Number(transferAmountInput.value);
+  const balance = currentAccount.credit;
+  //// blance > amount and receiver exist and amount > 0 and reciever different from current account ;
+  if (
+    balance >= amount &&
+    reciever &&
+    amount > 0 &&
+    reciever.userName !== currentAccount.userName
+  ) {
+    currentAccount.movements.push(-amount);
+    reciever.movements.push(amount);
+    //// update ui ::
+    // dispalyMovements(currentAccount);
+    // displayBalance(currentAccount);
+    // calcDispalySummary(currentAccount);
+    updateUi(currentAccount);
   }
 
-    userNameInput.value = pinInput.value = ""
- 
+  transferToInput.value = transferAmountInput.value = "";
+});
 
+/////////// userName faunctionnality :::
 
+const displayUsername = function (arr) {
+  arr.forEach((person) => {
+    person.userName = person.owner
+      .toLowerCase()
+      .split(" ")
+      .map((ele) => ele[0])
+      .join("");
+  });
+};
 
- 
-  
+displayUsername(accounts);
+console.log(accounts);
 
-})
+////// display login :::
 
+let currentAccount;
 
+btnLogin.addEventListener("click", function () {
+  currentAccount = accounts.find((acc) => {
+    return acc.userName === userNameInput.value;
+  });
+  console.log("current:", currentAccount);
 
+  if (currentAccount?.pin === Number(pinInput.value)) {
+    welcomeMessage.textContent = `welcome back ${
+      currentAccount.owner.split(" ")[0]
+    }`;
 
+    app.style.opacity = 1;
+    //// update ui ::
+    // dispalyMovements(currentAccount);
+    // displayBalance(currentAccount);
+    // calcDispalySummary(currentAccount);
+    updateUi(currentAccount);
+  }
 
-
-
-
+  userNameInput.value = pinInput.value = "";
+});
 
 /////// display movements :::
-
-
-
-
-
-
 
 const dispalyMovements = function (acc) {
   movementContainer.innerHTML = "";
@@ -144,34 +153,23 @@ const dispalyMovements = function (acc) {
 
 // dispalyMovements(account1.movements);
 
-
-
 //currentAccount = {
 //   owner: "Sarah Smith",
 //   movements: [430, 1000, 700, 50, 90],
 //   interestRate: 1,
 //   pin: 4444,
-  
-  
-// };
 
+// };
 
 /////// display balance :
 const displayBalance = function (cur) {
   const balance = cur.movements.reduce((acc, mov) => acc + mov, 0);
   //// update ui :
   balanceAccount.textContent = `${balance} € `;
+  cur.credit = balance;
 };
 
 // displayBalance(account1.movements);
-
-
-
-
-
-
-
-
 
 /////// display summary :::
 
@@ -199,15 +197,6 @@ const calcDispalySummary = function (current) {
 };
 
 // calcDispalySummary(account1.movements);
-
-
-
-
-
-
-
-
-
 
 /////////////////// lecture  ::: ////////////////////////
 
