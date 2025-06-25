@@ -46,17 +46,68 @@ const pinInput = document.querySelector(".pin");
 const btnLogin = document.querySelector(".auth-btn");
 const welcomeMessage = document.querySelector(".welcome");
 
-////// import transfert element :
+////// import transfert elements :
 const transferToInput = document.querySelector(".transfert-user");
 const transferAmountInput = document.querySelector(".amount-transfert-input");
 const transfertButton = document.querySelector(".transfert-button");
 
+//////// import close  elements ::
+
+const closeUserInput = document.querySelector(".close-user");
+const closePinInput = document.querySelector(".close-pin");
+const closeButton = document.querySelector(".close-button");
+
+///// import loan elements ::
+
+const loanInput = document.querySelector(".loan-input");
+const loanButton = document.querySelector(".loan-button");
+
+///// import sort button :
+
+const sortBtn = document.querySelector(".sort-btn");
+
 /////// update ui function ::
-const updateUi = function (cur) {
-  dispalyMovements(cur);
-  displayBalance(cur);
-  calcDispalySummary(cur);
-};
+
+////// loan functionnality ::
+
+loanButton.addEventListener("click", function (event) {
+  event.preventDefault();
+  const amount = Number(loanInput.value);
+
+  if (
+    amount > 0 &&
+    currentAccount.movements.some((mov) => mov > amount * 0.1)
+  ) {
+    currentAccount.movements.push(amount);
+    //// update ui ::
+    updateUi(currentAccount);
+  }
+
+  loanInput.value = "";
+});
+
+////// close functionnality ::
+
+closeButton.addEventListener("click", function (event) {
+  event.preventDefault();
+  const accountToClose = closeUserInput.value;
+  const accountPinToClose = Number(closePinInput.value);
+
+  if (
+    currentAccount.userName === accountToClose &&
+    currentAccount.pin === accountPinToClose
+  ) {
+    console.log("test");
+    const index = accounts.findIndex(
+      (person) => person.userName === accountToClose
+    );
+    accounts.splice(index, 1);
+    app.style.opacity = 0;
+    welcomeMessage.textContent = "Log in to get Started";
+  }
+
+  closePinInput.value = closeUserInput.value = "";
+});
 
 //////// transfert functionnality :
 transfertButton.addEventListener("click", function (event) {
@@ -66,7 +117,7 @@ transfertButton.addEventListener("click", function (event) {
   );
   const amount = Number(transferAmountInput.value);
   const balance = currentAccount.credit;
-  //// blance > amount and receiver exist and amount > 0 and reciever different from current account ;
+
   if (
     balance >= amount &&
     reciever &&
@@ -76,9 +127,7 @@ transfertButton.addEventListener("click", function (event) {
     currentAccount.movements.push(-amount);
     reciever.movements.push(amount);
     //// update ui ::
-    // dispalyMovements(currentAccount);
-    // displayBalance(currentAccount);
-    // calcDispalySummary(currentAccount);
+
     updateUi(currentAccount);
   }
 
@@ -117,9 +166,7 @@ btnLogin.addEventListener("click", function () {
 
     app.style.opacity = 1;
     //// update ui ::
-    // dispalyMovements(currentAccount);
-    // displayBalance(currentAccount);
-    // calcDispalySummary(currentAccount);
+
     updateUi(currentAccount);
   }
 
@@ -128,10 +175,13 @@ btnLogin.addEventListener("click", function () {
 
 /////// display movements :::
 
-const dispalyMovements = function (acc) {
+const dispalyMovements = function (acc, sort = false) {
   movementContainer.innerHTML = "";
 
-  acc.movements.forEach((mov, i) => {
+  const movs = sort
+    ? acc.movements.slice().sort((a, b) => a - b)
+    : acc.movements;
+  movs.forEach((mov, i) => {
     let type = mov > 0 ? "deposit" : "withdraw";
 
     let html = `
@@ -151,15 +201,12 @@ const dispalyMovements = function (acc) {
   });
 };
 
-// dispalyMovements(account1.movements);
+let sorted = false;
 
-//currentAccount = {
-//   owner: "Sarah Smith",
-//   movements: [430, 1000, 700, 50, 90],
-//   interestRate: 1,
-//   pin: 4444,
-
-// };
+sortBtn.addEventListener("click", function () {
+  dispalyMovements(currentAccount, !sorted);
+  sorted = !sorted;
+});
 
 /////// display balance :
 const displayBalance = function (cur) {
@@ -196,9 +243,14 @@ const calcDispalySummary = function (current) {
   interest.textContent = `${intresetc} €`;
 };
 
+const updateUi = function (cur) {
+  dispalyMovements(cur);
+  displayBalance(cur);
+  calcDispalySummary(cur);
+};
 // calcDispalySummary(account1.movements);
 
-/////////////////// lecture  ::: ////////////////////////
+//////////////////////////////////////////////////////// lecture  ::: /////////////////////////////////
 
 ///// section : data transformation ::
 
@@ -253,7 +305,7 @@ const calcDispalySummary = function (current) {
 //     console.log(` movement ${i+1} : you ${message} ${mov} `)
 // })
 
-const user = "Park Thomas Williams"; //// ==> ptw
+// const user = "Park Thomas Williams"; //// ==> ptw
 
 // const userName = user.toLowerCase()   /// park thomas williams  (string)
 
@@ -327,23 +379,23 @@ const user = "Park Thomas Williams"; //// ==> ptw
 
 // console.log(multiple)
 
-const y = [50, 300, 1000, 200, 2000, 10];
+// const y = [50, 300, 1000, 200, 2000, 10];
 
 //// get max using reduce ::
 
-const max = y.reduce((acc, ele, i) => {
-  // console.log(`${i} : ${acc}` )
-  if (acc > ele) {
-    return acc;
-  } else return ele;
-}, y[0]);
+// const max = y.reduce((acc, ele, i) => {
+//   // console.log(`${i} : ${acc}` )
+//   if (acc > ele) {
+//     return acc;
+//   } else return ele;
+// }, y[0]);
 
 // console.log(max)
 
 /////  challange  :::
 
-const account = [200, 450, -400, 3000, -650, -130, 70, 1300];
-const euroToDinar = 3.3;
+// const account = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const euroToDinar = 3.3;
 
 ///// sum of deposit on tunisian dinar ....
 
@@ -378,25 +430,51 @@ const euroToDinar = 3.3;
 //     console.log("we found it !! ")
 // }
 
-const dataBase = [
-  {
-    userName: "peter",
-    photo: "picture1",
-    age: 20,
-  },
+// const dataBase = [
+//   {
+//     userName: "peter",
+//     photo: "picture1",
+//     age: 20,
+//   },
 
-  {
-    userName: "mark",
-    photo: "picture2",
-    age: 60,
-  },
+//   {
+//     userName: "mark",
+//     photo: "picture2",
+//     age: 60,
+//   },
 
-  {
-    userName: "nicole",
-    photo: "picture3",
-    age: 30,
-  },
-];
+//   {
+//     userName: "nicole",
+//     photo: "picture3",
+//     age: 30,
+//   },
+// ];
 
 // const result = dataBase.find((person) => person.age === 60);
 // console.log(result);
+
+////// indexOf()
+
+// const arr = [1, 23, 4, 100, 4, 200];
+// // const names = ["jhon", "peter", "mark"];
+// const index = arr.indexOf(4);
+// console.log("index:", index);
+
+// const index = arr.findIndex((ele) => ele > 80);
+// console.log("findIndex:", index);
+// const index = names.findIndex((name) => name === "peter");
+// console.log("findIndexName:", index);
+
+////////// some and every ::
+
+// const numbers = [100, 150, 200, 250, 300];
+/// some ::
+
+// const result = numbers.some((ele) => ele > 350); //// fama chkoun akber men 150
+// console.log("some result :", result);
+
+///// every :::
+
+// const result = numbers.every((ele) => ele > 90); ///// ness el kol akber men 150
+
+// console.log("every result :", result);
